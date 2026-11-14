@@ -1,0 +1,25 @@
+# Environnement virtuel
+venv/
+.venv/
+env/
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Données générées
+outputs/*
+!outputs/.gitkeep
+chroma_db/
+*.faiss
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
