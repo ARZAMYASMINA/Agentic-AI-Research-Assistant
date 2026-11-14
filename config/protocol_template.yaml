@@ -1,0 +1,61 @@
+# Protocole de revue systématique (aligné PRISMA 2020)
+# Ce fichier est le point d'entrée de configuration : le Planner Agent le complète/valide.
+
+review:
+  title: ""
+  research_question: ""
+  framework: "PICO"        # PICO | PICOS | SPIDER | PCC
+
+pico:
+  population: ""
+  intervention: ""
+  comparator: ""
+  outcome: ""
+  study_design: ""
+
+eligibility:
+  inclusion:
+    - ""
+  exclusion:
+    - ""
+  languages: ["en"]
+  date_range:
+    from: ""
+    to: ""
+
+search:
+  sources: ["pubmed", "semantic_scholar", "arxiv", "openalex"]
+  max_results_per_source: 200
+  keywords: []
+  mesh_terms: []
+
+screening:
+  mode: "dual_simulated"   # deux agents indépendants + arbitrage
+  human_in_the_loop: true
+
+appraisal:
+  tool: "QUADAS-2"         # QUADAS-2 (études diagnostiques) | "RoB 2" (essais randomisés)
+
+# Champs d'extraction : par défaut ceux de agents/extraction.py (DEFAULT_GROUPS, adaptés aux études de
+# précision diagnostique). Pour un autre sujet, décommentez et adaptez, par exemple :
+# extraction:
+#   groups:
+#     - name: study
+#       fields:
+#         - {name: study_design, description: "Study design (RCT, cohort, ...)"}
+#         - {name: population, description: "Participants and sample size"}
+#     - name: results
+#       fields:
+#         - {name: primary_outcome, description: "Main outcome and its measured value"}
+
+llm:
+  provider: "ollama"
+  model: "qwen3.5:9b"
+  base_url: "http://localhost:11434"
+  temperature: 0.0         # reproductibilité
+  num_ctx: 16384           # contexte Ollama (défaut trop court pour des abstracts)
+  seed: 42
+
+output:
+  formats: ["markdown", "docx", "bibtex"]
+  directory: "outputs"
